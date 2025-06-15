@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #6366f1;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        form {
+            background-color: #2d2d2d;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1a1a1a;
+            border: 1px solid #4b5563;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #ffffff;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+        input[type="text"]::placeholder {
+            color: #9ca3af;
+        }
+        button {
+            background-color: #6366f1;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4f46e5;
+        }
+        .add-movie-btn {
+            background-color: #10b981;
+        }
+        .add-movie-btn:hover {
+            background-color: #059669;
+        }
+        .remove-movie-btn {
+            background-color: #ef4444;
+        }
+        .remove-movie-btn:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommendation System</h1>
+        <form action="/recommend" method="post">
+            <div id="movie-inputs">
+                <div class="mb-4 flex items-center">
+                    <input type="text" name="movies" placeholder="Enter a movie you've watched" class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mr-2">
+                    <button type="button" onclick="removeMovieInput(this)" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 hidden">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addMovieInput()" class="mb-6 px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">Add Another Movie</button>
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Get Recommendations</button>
+        </form>
+    </div>
+
+    <script>
+        function addMovieInput() {
+            const movieInputsDiv = document.getElementById('movie-inputs');
+            const newDiv = document.createElement('div');
+            newDiv.className = 'mb-4 flex items-center';
+            newDiv.innerHTML = `
+                <input type="text" name="movies" placeholder="Enter a movie you've watched" class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 mr-2">
+                <button type="button" onclick="removeMovieInput(this)" class="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">Remove</button>
+            `;
+            movieInputsDiv.appendChild(newDiv);
+            updateRemoveButtons();
+        }
+
+        function removeMovieInput(button) {
+            const movieInputsDiv = document.getElementById('movie-inputs');
+            movieInputsDiv.removeChild(button.parentNode);
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            const movieInputs = document.querySelectorAll('#movie-inputs .mb-4');
+            if (movieInputs.length === 1) {
+                movieInputs[0].querySelector('button').classList.add('hidden');
+            } else {
+                movieInputs.forEach(inputDiv => {
+                    inputDiv.querySelector('button').classList.remove('hidden');
+                });
+            }
+        }
+
+        // Initialize: hide remove button for the first input on load
+        document.addEventListener('DOMContentLoaded', updateRemoveButtons);
+    </script>
+</body>
+</html> 

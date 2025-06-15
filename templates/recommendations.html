@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #6366f1;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .recommendations {
+            background-color: #2d2d2d;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+        h2 {
+            color: #6366f1;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        li {
+            color: #e5e7eb;
+            margin-bottom: 0.5rem;
+        }
+        .go-back {
+            display: inline-block;
+            background-color: #6366f1;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .go-back:hover {
+            background-color: #4f46e5;
+        }
+        .text-gray-600 {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommendations</h1>
+        <div class="recommendations">
+            <h2>Based on your inputs:</h2>
+            <ul>
+                {% for movie in user_movies %}
+                <li>{{ movie }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Recommended Movies:</h2>
+            {% if recommendations %}
+            <ul>
+                {% for movie in recommendations %}
+                <li>{{ movie }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-600">No recommendations found for the given movies. Try entering different movies.</p>
+            {% endif %}
+            <div class="mt-6 text-center">
+                <a href="/" class="go-back">Go Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
